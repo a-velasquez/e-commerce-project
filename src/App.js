@@ -14,9 +14,13 @@ import {
 
 function App() {
 	return (
-		<div>
-			<h4>e-shop starter</h4>
-		</div>
+		<Router>
+			<Switch>
+				<Route exact path='/'>
+					<Home />
+				</Route>
+			</Switch>
+		</Router>
 	)
 }
 
