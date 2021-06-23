@@ -9,13 +9,17 @@ import CartButtons from './CartButtons'
 import {useUserContext} from '../context/user_context'
 
 const Sidebar = () => {
-	const isOpen = true
+	const {isSidebarOpen, closeSidebar} = useProductsContext()
+	const data = useProductsContext()
+	console.log(data)
 	return (
 		<SidebarContainer>
-			<aside className={`${isOpen ? 'sidebar show-sidebar' : 'sidebar'}`}>
+			<aside
+				className={`${isSidebarOpen ? 'sidebar show-sidebar' : 'sidebar'}`}
+			>
 				<div className='sidebar-header'>
 					<img src={logo} className='logo' alt='comfy sloth logo'></img>
-					<button className='close-btn' type='btn'>
+					<button className='close-btn' type='btn' onClick={closeSidebar}>
 						<FaTimes />
 					</button>
 				</div>
