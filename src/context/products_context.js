@@ -12,6 +12,7 @@ import {
 	GET_SINGLE_PRODUCT_SUCCESS,
 	GET_SINGLE_PRODUCT_ERROR
 } from '../actions'
+import {GiAnnexation} from 'react-icons/gi'
 
 const initialState = {
 	isSidebarOpen: false
@@ -30,8 +31,13 @@ export const ProductsProvider = ({children}) => {
 		dispatch({type: SIDEBAR_CLOSE})
 	}
 
+	const fetchProducts = async (url) => {
+		const response = await axios.get(url)
+		console.log(response)
+	}
+
 	useEffect(() => {
-		openSidebar()
+		fetchProducts(url)
 	}, [])
 
 	return (
