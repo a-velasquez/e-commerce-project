@@ -27,6 +27,10 @@ const FeaturedProducts = () => {
 					{featured.map((product) => {
 						return <Product key={product.id} {...product} />
 					})}
+					{/* to return first 3 products only
+					{featured.slice(0, 3).map((product) => {
+						return <Product key={product.id} {...product} />
+					})} */}
 				</div>
 			</div>
 		</Wrapper>
