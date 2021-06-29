@@ -55,7 +55,16 @@ const SingleProductPage = () => {
 		images
 	} = product
 
-	return <h4>single product page</h4>
+	return (
+		<Wrapper>
+			<PageHero title={name} product />
+			<div className='section section-center page'>
+				<Link to='/products' className='btn'>
+					back to products
+				</Link>
+			</div>
+		</Wrapper>
+	)
 }
 
 const Wrapper = styled.main`
