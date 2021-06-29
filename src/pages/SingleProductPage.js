@@ -15,6 +15,7 @@ import styled from 'styled-components'
 import {Link} from 'react-router-dom'
 
 const SingleProductPage = () => {
+	const history = useHistory()
 	const {id} = useParams()
 	const {
 		single_product_loading: loading,
@@ -26,7 +27,15 @@ const SingleProductPage = () => {
 	useEffect(() => {
 		fetchSingleProduct(`${url}${id}`)
 	}, [id])
-	console.log(product)
+
+	useEffect(() => {
+		console.log(error)
+		if (error) {
+			setTimeout(() => {
+				history.push('/')
+			}, 3000)
+		}
+	}, [error])
 
 	if (loading) {
 		return <Loading />
