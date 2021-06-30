@@ -2,9 +2,20 @@ import React, {useState} from 'react'
 import styled from 'styled-components'
 
 //setting images to [] so not undefined upon initial render
-const ProductImages = ({images} = []) => {
+const ProductImages = ({images = [{url: ''}]}) => {
 	const [main, setMain] = useState(images[0])
-	return <h4>product images</h4>
+
+	return (
+		<Wrapper>
+			<img src={main.url} alt='main image' className='main' />
+			<div className='gallery'>
+				{images.map((image, index) => {
+					console.log(image, index)
+					return <img src={image.url} alt={image.filename} key={index} />
+				})}
+			</div>
+		</Wrapper>
+	)
 }
 
 const Wrapper = styled.section`
