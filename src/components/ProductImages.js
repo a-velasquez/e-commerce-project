@@ -2,16 +2,22 @@ import React, {useState} from 'react'
 import styled from 'styled-components'
 
 //setting images to [] so not undefined upon initial render
-const ProductImages = ({images = [{url: ''}]}) => {
+const ProductImages = ({images = [[]]}) => {
 	const [main, setMain] = useState(images[0])
-
 	return (
 		<Wrapper>
-			<img src={main.url} alt='main image' className='main' />
+			<img src={main.url} alt='' className='main ' />
 			<div className='gallery'>
 				{images.map((image, index) => {
-					console.log(image, index)
-					return <img src={image.url} alt={image.filename} key={index} />
+					return (
+						<img
+							src={image.url}
+							alt=''
+							key={index}
+							className={`${image.url === main.url ? 'active' : null}`}
+							onClick={() => setMain(images[index])}
+						/>
+					)
 				})}
 			</div>
 		</Wrapper>
