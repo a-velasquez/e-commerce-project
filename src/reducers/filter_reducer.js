@@ -29,9 +29,19 @@ const filter_reducer = (state, action) => {
 	}
 	if (action.type === SORT_PRODUCTS) {
 		const {sort, filtered_products} = state
+		// [...filtered_products] in case of no matching value
 		let tempProducts = [...filtered_products]
+		// long way - same as implicit return below
 		if (sort === 'price-lowest') {
-			tempProducts = tempProducts.sort((a, b) => a.price - b.price)
+			tempProducts = tempProducts.sort((a, b) => {
+				if (a.price < b.price) {
+					return -1
+				}
+				if (a.price > b.price) {
+					return 1
+				}
+				return 0
+			})
 		}
 		if (sort === 'price-highest') {
 			tempProducts = tempProducts.sort((a, b) => b.price - a.price)
