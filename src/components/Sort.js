@@ -30,7 +30,7 @@ const Sort = () => {
 			<p>{products.length} products found</p>
 			<hr />
 			<form>
-				<label htmlFor='sort'>sort by</label>
+				<label htmlFor='sort'>sort by </label>
 				<select name='sort' id='sort' className='sort-input'>
 					<option value='price-lowest'>price (lowest)</option>
 					<option value='price-highest'>price (highest)</option>
