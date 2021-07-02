@@ -11,24 +11,28 @@ import {
 
 const filter_reducer = (state, action) => {
 	if (action.type === LOAD_PRODUCTS) {
+		let maxPrice = action.payload.map((p) => p.price)
+		// can't pass array in directly, ...
+		maxPrice = Math.max(...maxPrice)
 		return {
 			...state,
 			// spread operator lets us set all_products and filtered_products to same state without errors
-			all_producst: [...action.payload],
-			filtered_products: [...action.payload]
+			all_products: [...action.payload],
+			filtered_products: [...action.payload],
+			filters: { ...state.filters, max_price: maxPrice, price: maxPrice }
 		}
 	}
 	if (action.type === SET_GRIDVIEW) {
-		return {...state, grid_view: true}
+		return { ...state, grid_view: true }
 	}
 	if (action.type === SET_LISTVIEW) {
-		return {...state, grid_view: false}
+		return { ...state, grid_view: false }
 	}
 	if (action.type === UPDATE_SORT) {
-		return {...state, sort: action.payload}
+		return { ...state, sort: action.payload }
 	}
 	if (action.type === SORT_PRODUCTS) {
-		const {sort, filtered_products} = state
+		const { sort, filtered_products } = state
 		// [...filtered_products] in case of no matching value
 		let tempProducts = [...filtered_products]
 		// long way - same as implicit return below
@@ -56,7 +60,7 @@ const filter_reducer = (state, action) => {
 				return b.name.localeCompare(a.name)
 			})
 		}
-		return {...state, filtered_products: tempProducts}
+		return { ...state, filtered_products: tempProducts }
 	}
 	throw new Error(`No Matching "${action.type}" - action type`)
 }
