@@ -12,11 +12,9 @@ import {
 const filter_reducer = (state, action) => {
 	if (action.type === LOAD_PRODUCTS) {
 		let maxPrice = action.payload.map((p) => p.price)
-		// can't pass array in directly, ...
 		maxPrice = Math.max(...maxPrice)
 		return {
 			...state,
-			// spread operator lets us set all_products and filtered_products to same state without errors
 			all_products: [...action.payload],
 			filtered_products: [...action.payload],
 			filters: { ...state.filters, max_price: maxPrice, price: maxPrice }
@@ -33,22 +31,31 @@ const filter_reducer = (state, action) => {
 	}
 	if (action.type === SORT_PRODUCTS) {
 		const { sort, filtered_products } = state
-		// [...filtered_products] in case of no matching value
-		let tempProducts = [...filtered_products]
-		// long way - same as implicit return below
+		let tempProducts = []
 		if (sort === 'price-lowest') {
-			tempProducts = tempProducts.sort((a, b) => {
-				if (a.price < b.price) {
-					return -1
-				}
-				if (a.price > b.price) {
-					return 1
-				}
-				return 0
+			tempProducts = filtered_products.sort((a, b) => {
+				// long way - same as implicit return below
+				// if (a.price < b.price) {
+				//   return -1
+				// }
+				// if (a.price > b.price) {
+				//   return 1
+				// }
+				// return 0
+				return a.price - b.price
 			})
 		}
 		if (sort === 'price-highest') {
-			tempProducts = tempProducts.sort((a, b) => b.price - a.price)
+			tempProducts = filtered_products.sort((a, b) => {
+				// if (b.price < a.price) {
+				//   return -1
+				// }
+				// if (b.price > a.price) {
+				//   return 1
+				// }
+				// return 0
+				return b.price - a.price
+			})
 		}
 		if (sort === 'name-a') {
 			tempProducts = filtered_products.sort((a, b) => {
@@ -60,7 +67,15 @@ const filter_reducer = (state, action) => {
 				return b.name.localeCompare(a.name)
 			})
 		}
+
 		return { ...state, filtered_products: tempProducts }
+	}
+	if (action.type === UPDATE_FILTERS) {
+		const { name, value } = action.payload
+		return { ...state, filters: { ...state.filters, [name]: value } }
+	}
+	if (action.type === FILTER_PRODUCTS) {
+		return { ...state }
 	}
 	throw new Error(`No Matching "${action.type}" - action type`)
 }
