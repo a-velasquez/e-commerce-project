@@ -1,4 +1,4 @@
-import React, {useEffect, useContext, useReducer} from 'react'
+import React, { useEffect, useContext, useReducer } from 'react'
 import reducer from '../reducers/filter_reducer'
 import {
 	LOAD_PRODUCTS,
@@ -10,7 +10,7 @@ import {
 	FILTER_PRODUCTS,
 	CLEAR_FILTERS
 } from '../actions'
-import {useProductsContext} from './products_context'
+import { useProductsContext } from './products_context'
 
 const initialState = {
 	filtered_products: [],
@@ -31,32 +31,37 @@ const initialState = {
 
 const FilterContext = React.createContext()
 
-export const FilterProvider = ({children}) => {
-	const {products} = useProductsContext()
+export const FilterProvider = ({ children }) => {
+	const { products } = useProductsContext()
 	const [state, dispatch] = useReducer(reducer, initialState)
 
 	useEffect(() => {
-		dispatch({type: LOAD_PRODUCTS, payload: products})
+		dispatch({ type: LOAD_PRODUCTS, payload: products })
 	}, [products])
 
 	useEffect(() => {
-		dispatch({type: SORT_PRODUCTS})
+		dispatch({ type: FILTER_PRODUCTS })
+		dispatch({ type: SORT_PRODUCTS })
 	}, [products, state.sort])
 
 	const setGridView = () => {
-		dispatch({type: SET_GRIDVIEW})
+		dispatch({ type: SET_GRIDVIEW })
 	}
 
 	const setListView = () => {
-		dispatch({type: SET_LISTVIEW})
+		dispatch({ type: SET_LISTVIEW })
 	}
 
 	const updateSort = (e) => {
 		const value = e.target.value
-		dispatch({type: UPDATE_SORT, payload: value})
+		dispatch({ type: UPDATE_SORT, payload: value })
 	}
 
-	const updateFilters = (e) => {}
+	const updateFilters = (e) => {
+		let name = e.target.name
+		let value = e.target.value
+		dispatch({ type: UPDATE_FILTERS, payload: { name, value } })
+	}
 
 	const clearFilters = () => {}
 
@@ -69,8 +74,7 @@ export const FilterProvider = ({children}) => {
 				updateSort,
 				updateFilters,
 				clearFilters
-			}}
-		>
+			}}>
 			{children}
 		</FilterContext.Provider>
 	)
