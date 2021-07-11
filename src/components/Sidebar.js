@@ -1,22 +1,20 @@
 import React from 'react'
 import logo from '../assets/logo.svg'
-import {Link} from 'react-router-dom'
-import {useProductsContext} from '../context/products_context'
-import {FaTimes} from 'react-icons/fa'
-import {links} from '../utils/constants'
+import { Link } from 'react-router-dom'
+import { useProductsContext } from '../context/products_context'
+import { FaTimes } from 'react-icons/fa'
+import { links } from '../utils/constants'
 import styled from 'styled-components'
 import CartButtons from './CartButtons'
-import {useUserContext} from '../context/user_context'
+import { useUserContext } from '../context/user_context'
 
 const Sidebar = () => {
-	const {isSidebarOpen, closeSidebar} = useProductsContext()
+	const { isSidebarOpen, closeSidebar } = useProductsContext()
 	const data = useProductsContext()
-	console.log(data)
 	return (
 		<SidebarContainer>
 			<aside
-				className={`${isSidebarOpen ? 'sidebar show-sidebar' : 'sidebar'}`}
-			>
+				className={`${isSidebarOpen ? 'sidebar show-sidebar' : 'sidebar'}`}>
 				<div className='sidebar-header'>
 					<img src={logo} className='logo' alt='comfy sloth logo'></img>
 					<button className='close-btn' type='btn' onClick={closeSidebar}>
@@ -25,7 +23,7 @@ const Sidebar = () => {
 				</div>
 				<ul className='links'>
 					{links.map((link) => {
-						const {id, text, url} = link
+						const { id, text, url } = link
 						return (
 							<li key={id}>
 								<Link to={url} onClick={closeSidebar}>
