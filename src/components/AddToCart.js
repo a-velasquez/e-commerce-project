@@ -1,13 +1,14 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
-import {Link} from 'react-router-dom'
-import {FaCheck} from 'react-icons/fa'
-import {useCartContext} from '../context/cart_context'
+import { Link } from 'react-router-dom'
+import { FaCheck } from 'react-icons/fa'
+import { useCartContext } from '../context/cart_context'
 import AmountButtons from './AmountButtons'
-import {useProductsContext} from '../context/products_context'
+import { useProductsContext } from '../context/products_context'
 
-const AddToCart = ({product}) => {
-	const {id, stock, colors} = product
+const AddToCart = ({ product }) => {
+	const { AddToCart } = useCartContext()
+	const { id, stock, colors } = product
 	const [amount, setAmount] = useState(1)
 	const [mainColor, setMainColor] = useState(colors[0])
 
@@ -40,12 +41,11 @@ const AddToCart = ({product}) => {
 						return (
 							<button
 								key={index}
-								style={{background: color}}
+								style={{ background: color }}
 								className={`${
 									mainColor === color ? 'color-btn active' : 'color-btn'
 								}`}
-								onClick={() => setMainColor(color)}
-							>
+								onClick={() => setMainColor(color)}>
 								{mainColor === color ? <FaCheck /> : null}
 							</button>
 						)
@@ -58,7 +58,12 @@ const AddToCart = ({product}) => {
 					increase={increase}
 					decrease={decrease}
 				/>
-				<Link to='/cart' className='btn'>
+				<Link
+					to='/cart'
+					className='btn'
+					onClick={() => {
+						AddToCart(id, mainColor, amount, product)
+					}}>
 					Add to cart
 				</Link>
 			</div>
