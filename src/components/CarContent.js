@@ -27,6 +27,7 @@ const CartContent = () => {
 					clear cart
 				</button>
 			</div>
+			<CartTotals />
 		</Wrapper>
 	)
 }
