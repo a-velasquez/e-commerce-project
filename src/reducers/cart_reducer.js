@@ -10,8 +10,23 @@ const cart_reducer = (state, action) => {
 	if (action.type === ADD_TO_CART) {
 		const { id, color, amount, product } = action.payload
 		// combine product id + color to distinguish items in cart
+		// item is already in cart
 		const tempItem = state.cart.find((item) => item.id === id + color)
 		if (tempItem) {
+			const tempCart = state.cart.map((cartItem) => {
+				if (cartItem.id === id + color) {
+					let newAmount = cartItem.amount + amount
+					if (newAmount > cartItem.max) {
+						newAmount = cartItem.max
+					}
+					return { ...cartItem, amount: newAmount }
+				} else {
+					return cartItem
+				}
+			})
+
+			return { ...state, cart: tempCart }
+			// Item is not already in cart
 		} else {
 			const newItem = {
 				id: id + color,
