@@ -30,6 +30,11 @@ export const CartProvider = ({ children }) => {
 
 	const clearCart = () => {}
 
+	useEffect(() => {
+		//                    key: ,  value:
+		localStorage.setItem('cart', JSON.stringify(state.cart))
+	}, [state.cart])
+
 	return (
 		<CartContext.Provider
 			value={{ ...state, addToCart, removeItem, toggleAmount, clearCart }}>
