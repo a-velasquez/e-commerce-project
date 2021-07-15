@@ -1,6 +1,6 @@
 import React from 'react'
-import {useProductsContext} from '../context/products_context'
-import {Link} from 'react-router-dom'
+import { useProductsContext } from '../context/products_context'
+import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import Error from './Error'
 import Loading from './Loading'
@@ -23,16 +23,19 @@ const FeaturedProducts = () => {
 			<div className='title'>
 				<h2>featured products</h2>
 				<div className='underline' />
-				<div className='section-center featured'>
-					{featured.map((product) => {
-						return <Product key={product.id} {...product} />
-					})}
-					{/* to return first 3 products only
+			</div>
+			<div className='section-center featured'>
+				{featured.map((product) => {
+					return <Product key={product.id} {...product} />
+				})}
+				{/* to return first 3 products only
 					{featured.slice(0, 3).map((product) => {
 						return <Product key={product.id} {...product} />
 					})} */}
-				</div>
 			</div>
+			<Link to='/products' className='btn'>
+				All products
+			</Link>
 		</Wrapper>
 	)
 }
