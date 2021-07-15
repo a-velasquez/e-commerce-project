@@ -1,6 +1,6 @@
 import React from 'react'
-import {BrowserRouter as Router, Switch, Route} from 'react-router-dom'
-import {Navbar, Sidebar, Footer} from './components'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import { Navbar, Sidebar, Footer } from './components'
 import {
 	Home,
 	Products,
@@ -31,9 +31,9 @@ function App() {
 					<Products />
 				</Route>
 				<Route exact path='/products/:id' children={<SingleProduct />}></Route>
-				<Route exact path='/checkout'>
+				<Private exact path='/checkout'>
 					<Checkout />
-				</Route>
+				</Private>
 				<Route path='*'>
 					<Error />
 				</Route>
