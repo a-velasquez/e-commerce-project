@@ -45,7 +45,30 @@ const CheckoutForm = () => {
 		}
 	}
 
-	return <h4>hello from Stripe Checkout </h4>
+	const createPaymentIntent = async () => {
+		console.log('hello from stripe checkout')
+	}
+
+	useEffect(() => {
+		createPaymentIntent()
+		// eslint-disable-next-line
+	}, [])
+
+	const handleChange = async (event) => {}
+
+	const handleSubmit = async (ev) => {}
+
+	return (
+		<div>
+			<form id='payment-form' onSubmit={handleSubmit}>
+				<CardElement
+					id='card-element'
+					options={cardStyle}
+					onChange={handleChange}
+				/>
+			</form>
+		</div>
+	)
 }
 
 const StripeCheckout = () => {
