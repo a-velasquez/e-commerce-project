@@ -71,6 +71,16 @@ const CheckoutForm = () => {
 						{processing ? <div className='spinner' id='spinner'></div> : 'Pay'}
 					</span>
 				</button>
+				{/* show errors that may happen when processing payments */}
+				{error && (
+					<div className='card-error' role='alert'>
+						{error}
+					</div>
+				)}
+				{/* show success message if completed successfully */}
+				<p className={succeeded ? 'result-message' : 'result-message hidden'}>
+					Payment Successful
+				</p>
 			</form>
 		</div>
 	)
